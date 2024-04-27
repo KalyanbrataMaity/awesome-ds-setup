@@ -126,7 +126,7 @@ and add somewhere on the file the following code:
 Host *
     AddKeysToAgent yes
     UseKeychain yes
-    IdentifyFile ~/.ssh/your_ssh_key
+    IdentityFile ~/.ssh/your_ssh_key
 ```
 where `your_ssh_key` is the private key file name. Then press `esc` and then `:wq` and `Enter` to save and exit from vim.
 
@@ -136,6 +136,24 @@ Last run the following to load the key:
 ``` Shell
 ssh-add --apple-use-keychain ~/.ssh/your_ssh_key
 ```
+
+Once the above are done, you should try to test your connection by commanding
+`ssh -T git@github.com`. This attempts to ssh to Github Enterprise Cloud.
+
+You may see a warning like below:
+![TestConnectionWarning](https://github.com/KalyanbrataMaity/awesome-ds-setup/assets/49729035/3d16e10a-74e1-476c-88f7-d5d7b491cb51)
+
+Then verify that fingerprint in the message you see matches [Github's public key fingerprint](https://docs.github.com/en/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints). If it does then type `yes`.
+
+
+To not this repeat this step again and again, you can add the following ssh key entries to your `~/.ssh/known_hosts` file to avoid manually verifying Github hosts:
+
+```Shell
+github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
+github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg=
+github.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCj7ndNxQowgcQnjshcLrqPEiiphnt+VTTvDP6mHBL9j1aNUkY4Ue1gvwnGLVlOhGeYrnZaMgRK6+PKCUXaDbC7qtbW8gIkhL7aGCsOr/C56SJMy/BCZfxd1nWzAOxSDPgVsmerOBYfNqltV9/hWCqBywINIR+5dIg6JTJ72pcEpEjcYgXkE2YEFXV1JHnsKgbLWNlhScqb2UmyRkQyytRLtL+38TGxkxCflmO+5Z8CSSNY7GidjMIZ7Q4zMjA2n1nGrlTDkzwDCsw+wqFPGQA179cnfGWOWRVruj16z6XyvxvjJwbz0wQZ75XK5tKSb7FNyeIEs4TT4jk+S4dhPeAUC5y+bDYirYgM4GC7uEnztnZyaVWQ7B381AK4Qdrwt51ZqExKbQpTUNn+EjqoTwvqNj4kqx5QUCI0ThS/YkOxJCXmPUWZbhjpCg56i+2aB6CmK2JGhn57K5mj0MNdBXA4/WnwH6XoPWJzK5Nyu2zB3nAZp+S5hpQs+p1vN1/wsjk=
+```
+
 ------------------------------------------------------------------------------
 
 # How to start a Github project:
